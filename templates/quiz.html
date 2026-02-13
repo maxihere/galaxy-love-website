@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+    <title>Quiz About Me 💘</title>
+
+    <style>
+        body {
+            background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 40px;
+            font-size: 40px;
+            color: #ff9dfc;
+            text-shadow: 0 0 20px #ff00ff;
+        }
+
+        .quiz-container {
+            width: 70%;
+            margin: auto;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg,#ff00cc,#3333ff);
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #loading {
+            display: none;
+            margin-top: 40px;
+            font-size: 25px;
+            color: gold;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        #result {
+            display: none;
+            margin-top: 40px;
+            font-size: 30px;
+            color: #00ffcc;
+            text-shadow: 0 0 20px #00ffcc;
+        }
+    </style>
+</head>
+
+<div class="stars"></div>
+
+
+<h1>How Well Do You Know Me? 💕</h1>
+
+<div class="quiz-container" id="quiz">
+
+<form id="quizForm">
+
+<p>1. My favorite color?</p>
+<input type="radio" name="q1" value="0"> Blue<br>
+<input type="radio" name="q1" value="1"> Black<br>
+<input type="radio" name="q1" value="0"> Red<br><br>
+
+<p>2. My favorite food?</p>
+<input type="radio" name="q2" value="1"> Biriyani<br>
+<input type="radio" name="q2" value="1"> Parottabr>
+<input type="radio" name="q2" value="0"> Pasta<br><br>
+
+<p>3. My dream place?</p>
+<input type="radio" name="q3" value="0"> London<br>
+<input type="radio" name="q3" value="1"> Your Heart<br>
+<input type="radio" name="q3" value="0"> Paris<br><br>
+
+<p>4. My favorite movie genre?</p>
+<input type="radio" name="q4" value="0"> Romance<br>
+<input type="radio" name="q4" value="0"> Horror<br>
+<input type="radio" name="q4" value="1"> Action<br><br>
+
+<p>5. Who do I love the most?</p>
+<input type="radio" name="q5" value="1"> You 💖<br>
+<input type="radio" name="q5" value="0"> Myself<br>
+<input type="radio" name="q5" value="0"> Parotta<br><br>
+
+<p>6. My favorite time with you?</p>
+<input type="radio" name="q6" value="1"> Every moment<br>
+<input type="radio" name="q6" value="0"> Morning only<br>
+<input type="radio" name="q6" value="0"> Night only<br><br>
+
+<p>7. My favorite pet?</p>
+<input type="radio" name="q7" value="1"> Dog<br>
+<input type="radio" name="q7" value="0"> Cat<br>
+<input type="radio" name="q7" value="0"> Fish<br><br>
+
+<p>8. My biggest fear?</p>
+<input type="radio" name="q8" value="1"> Losing you<br>
+<input type="radio" name="q8" value="0"> Exams<br>
+<input type="radio" name="q8" value="0"> Darkness<br><br>
+
+<p>9. My love language?</p>
+<input type="radio" name="q9" value="1"> Quality Time<br>
+<input type="radio" name="q9" value="0"> Gifts<br>
+<input type="radio" name="q9" value="1"> Silence<br><br>
+
+<p>10. Our anniversary month?</p>
+<input type="radio" name="q10" value="1"> August<br>
+<input type="radio" name="q10" value="0"> January<br>
+<input type="radio" name="q10" value="0"> December<br><br>
+
+<button type="button" onclick="calculateScore()">Submit 💘</button>
+
+</form>
+</div>
+
+<div id="loading">
+    ✨ Calculating how much you know me... ✨
+</div>
+
+<div id="result"></div>
+
+<script>
+function calculateScore() {
+
+    let score = 0;
+    const form = document.getElementById("quizForm");
+    const answers = new FormData(form);
+
+    for (let value of answers.values()) {
+        score += parseInt(value);
+    }
+
+    document.getElementById("quiz").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+
+    setTimeout(function() {
+        document.getElementById("loading").style.display = "none";
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = "💖 You scored " + score + " / 10 💖<br><br>";
+
+        if(score == 10){
+            resultDiv.innerHTML += "You know me perfectly 😭✨ I’m marrying you.";
+        } else if(score >= 7){
+            resultDiv.innerHTML += "Very impressive 😌💕 You really pay attention!";
+        } else {
+            resultDiv.innerHTML += "Hmmmm… we need more dates 😏💘";
+        }
+
+    }, 3000); // 3 second suspense
+}
+</script>
+
+<div class="stars"></div>
+
+</html>

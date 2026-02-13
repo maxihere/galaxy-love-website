@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+.memory-card{
+    margin:60px auto;
+    max-width:800px;
+    padding:30px;
+    background:rgba(255,255,255,0.05);
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 30px rgba(168,85,247,0.4);
+}
+</style>
+</head>
+<div class="stars"></div>
+
+
+<h1>Our Memories 🌌</h1>
+
+<div class="memory-card">
+<h2>The Day We Met ✨</h2>
+<img src="{{ url_for('static', filename='images/pic4.png') }}">
+<p>That was the beginning of everything beautiful in my life.</p>
+</div>
+
+<div class="memory-card">
+<h2>Your First Gift To Me 💖</h2>
+<img src="{{ url_for('static', filename='images/watch.jpg') }}">
+<p>The Feeling I Got That Day Was Unexplainable.</p>
+</div>
+
+<div class="memory-card">
+<h2>05 August 2024 🌠</h2>
+<img src="{{ url_for('static', filename='images/proposal.jpg') }}">
+<p>The stars were shining… but you were brighter.</p>
+</div>
+
+<div class="memory-card">
+<h2>First Selfie U Sent To Me</h2>
+<img src="{{ url_for('static', filename='images/pic1.jpg') }}">
+<p>Still the cutest photo of you.</p>
+</div>
+
+<div class="memory-card">
+<h2>First Diwali Together</h2>
+<img src="{{ url_for('static', filename='images/diwali.jpg') }}">
+<p>Bunny For Real</p>
+</div>
+
+<div class="memory-card">
+<h2>First Photo Together</h2>
+<img src="{{ url_for('static', filename='images/pic2.jpg') }}">
+<p>Still A Fav Photo</p>
+</div>
+
+<div class="stars"></div>
+
+</html>

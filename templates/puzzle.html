@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+#puzzle-container {
+    width: 360px;
+    height: 360px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+.tile {
+    width: 100%;
+    height: 100%;
+    background-size: 360px 360px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(168,85,247,0.6);
+    transition: transform 0.2s;
+}
+
+.tile:hover {
+    transform: scale(1.05);
+}
+
+.empty {
+    background: transparent;
+    box-shadow: none;
+    cursor: default;
+}
+
+#win-message {
+    font-size: 28px;
+    margin-top: 20px;
+    color: #f0abfc;
+    display: none;
+}
+</style>
+</head>
+
+<div class="stars"></div>
+
+
+<div class="container">
+<h1>Fix Our Beautiful Memory 🧩</h1>
+<p>Arrange the pieces to complete our picture 💖</p>
+
+<div id="puzzle-container"></div>
+
+<h2 id="win-message">You completed us ❤️✨</h2>
+
+<button onclick="shuffle()">Shuffle Again 🔄</button>
+</div>
+
+<script>
+const container = document.getElementById("puzzle-container");
+const winMessage = document.getElementById("win-message");
+
+let tiles = [];
+let emptyIndex = 8;
+
+// Create tiles
+function createPuzzle() {
+    container.innerHTML = "";
+    tiles = [];
+
+    for (let i = 0; i < 9; i++) {
+        const tile = document.createElement("div");
+
+        if (i !== 8) {
+            tile.classList.add("tile");
+            tile.style.backgroundImage = 
+            "url('{{ url_for('static', filename='images/pic2.jpg') }}')";
+            tile.style.backgroundPosition =
+                `${-120 * (i % 3)}px ${-120 * Math.floor(i / 3)}px`;
+            tile.dataset.index = i;
+        } else {
+            tile.classList.add("tile", "empty");
+            tile.dataset.index = i;
+        }
+
+        tile.addEventListener("click", () => moveTile(i));
+        container.appendChild(tile);
+        tiles.push(tile);
+    }
+}
+
+// Move tile if valid
+function moveTile(index) {
+    const validMoves = [
+        emptyIndex - 1,
+        emptyIndex + 1,
+        emptyIndex - 3,
+        emptyIndex + 3
+    ];
+
+    if (validMoves.includes(index)) {
+        // Swap backgrounds
+        tiles[emptyIndex].style.backgroundImage = tiles[index].style.backgroundImage;
+        tiles[emptyIndex].style.backgroundPosition = tiles[index].style.backgroundPosition;
+        tiles[emptyIndex].classList.remove("empty");
+
+        tiles[index].style.backgroundImage = "";
+        tiles[index].classList.add("empty");
+
+        emptyIndex = index;
+        checkWin();
+    }
+}
+
+// Shuffle puzzle
+function shuffle() {
+    for (let i = 0; i < 200; i++) {
+        const moves = [
+            emptyIndex - 1,
+            emptyIndex + 1,
+            emptyIndex - 3,
+            emptyIndex + 3
+        ].filter(i => i >= 0 && i < 9);
+
+        const randomMove = moves[Math.floor(Math.random() * moves.length)];
+        moveTile(randomMove);
+    }
+    winMessage.style.display = "none";
+}
+
+// Check win condition
+function checkWin() {
+    let correct = true;
+
+    for (let i = 0; i < 8; i++) {
+        if (tiles[i].style.backgroundPosition !== 
+            `${-120 * (i % 3)}px ${-120 * Math.floor(i / 3)}px`) {
+            correct = false;
+        }
+    }
+
+    if (correct) {
+        winMessage.style.display = "block";
+        celebrate();
+    }
+}
+
+// Fireworks effect
+function celebrate() {
+    for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = Math.random() * window.innerHeight + "px";
+        heart.style.fontSize = "30px";
+        heart.style.animation = "floatUp 2s ease forwards";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 2000);
+    }
+}
+
+createPuzzle();
+shuffle();
+</script>
+
+<style>
+@keyframes floatUp {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-100px); }
+}
+</style>
+
+<div class="stars"></div>
+
+</html>
